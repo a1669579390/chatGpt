@@ -28,3 +28,6 @@ async def hello_world(request):
       response = data["message"]
     print(response)
     return text("Hello, world.")
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=9395)
