@@ -15,7 +15,7 @@ chatbot = Chatbot(config={
   "access_token": accessToken
 })
 
-prompt = "Hello?"
+prompt = "写一个递归"
 
 
 
@@ -27,7 +27,7 @@ async def hello_world(request):
     for data in chatbot.ask(prompt):
       response = data["message"]
     print(response)
-    return text("Hello, world.")
+    return text(response)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=9395)
