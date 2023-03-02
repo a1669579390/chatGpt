@@ -1,6 +1,4 @@
 {
-    "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.extraPaths": [
-        "./venv/lib/python3.6/site-packages"
-    ]
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.extraPaths": ["./venv/lib/python3.6/site-packages"]
 }
