@@ -4,7 +4,8 @@ WORKDIR /sanic
 
 COPY . .
 
-RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple/
+# RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple/
+RUN pip install -r requirements.txt
 
 EXPOSE 9395
 
