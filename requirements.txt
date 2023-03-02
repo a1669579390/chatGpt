@@ -1,5 +1,5 @@
 sanic==22.6.0
 Sanic-Cors==2.1.0
 sanic-routing==22.3.0
-revChatGPT==2.3.14
+revChatGPT==3.0.4
 python-dotenv
