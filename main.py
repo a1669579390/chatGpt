@@ -6,14 +6,13 @@ from sanic import Sanic
 import uuid
 import openai
 
-openai.api_key = "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"
-
 app = Sanic("MyHelloWorldApp")
-
-
 load_dotenv()
 
 accessToken = os.getenv('accessToken')
+apiKey = os.getenv('apiKey')
+
+openai.api_key = apiKey
 
 chatbot = Chatbot(config={
   "access_token": accessToken
