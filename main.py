@@ -1,9 +1,11 @@
 import json
+import sys
 from revChatGPT.V1 import Chatbot
 import os
 from dotenv import load_dotenv
 from sanic import Sanic
 import uuid
+import time
 import openai
 
 app = Sanic("MyHelloWorldApp")
@@ -25,23 +27,31 @@ async def open_ai(request,ws):
     while True:
       recv = await ws.recv()
       jsonRecv = json.loads(recv)
+      completion = openai.ChatCompletion.create(
+          model="gpt-3.5-turbo",
+          stream=True,
+          messages=[
+          {"role": "system", "content": "You are a helpful assistant."},
+          {"role": "user", "content": recv}
+          ])
+      
       if jsonRecv['code'] == 209:
         return
       try :
-        completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": recv}
-        ])
-        res = completion['choices'][0]['message']
-        result = {
-          'isMe':0,
-          'parent_id':str( uuid.uuid1()),
-          'message':res['content'],
-          'role':res['role'],
-        }
-        await ws.send(json.dumps(result,ensure_ascii=False))
+        message1 = ''
+        for n in completion:
+          
+          res = n['choices'][0]['delta']
+          if n['choices'][0]['finish_reason']!='stop':
+            result = {
+              'isMe':0,
+              'parent_id':n['id'],
+              'message': '',
+            }
+            if ('content' in res):
+              message1 += res['content']
+              result['message'] = message1
+            await ws.send(json.dumps(result,ensure_ascii=False))
       except Exception as e :
         print(e)
         await ws.send(json.dumps({
