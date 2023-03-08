@@ -6,7 +6,7 @@ from sanic import Sanic
 import uuid
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 app = Sanic("MyHelloWorldApp")
 
